@@ -3,6 +3,8 @@ using Microsoft.Extensions.Logging;
 using System.Data;
 using System.Net.Sockets;
 using System;
+using Ta23ALõppTöö.Models;
+
 
 namespace CinemaBackend.Data
 {

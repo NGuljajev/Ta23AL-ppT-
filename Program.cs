@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 
 // ✅ Add Swagger services
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(); /a
+builder.Services.AddSwaggerGen(); //a
 
 // Register DbContext (MySQL)
 var connectionString = builder.Configuration.GetConnectionString("CinemaDb");
