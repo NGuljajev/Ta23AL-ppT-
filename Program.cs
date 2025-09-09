@@ -1,42 +1,42 @@
 ﻿using CinemaBackend.Data;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
+// Tell Kestrel to bind both ports
+builder.WebHost.UseUrls("http://localhost:5298", "https://localhost:7282");
 
-// ✅ Add Swagger services
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(); //a
-
-// Register DbContext (MySQL)
-var connectionString = builder.Configuration.GetConnectionString("CinemaDb");
-
-builder.Services.AddDbContext<CinemaDbContext>(options =>
-    options.UseMySql(
-        connectionString,
-        ServerVersion.AutoDetect(connectionString)
-    )
+// Register EF Core + MySQL
+var conn = builder.Configuration.GetConnectionString("CinemaDb");
+builder.Services.AddDbContext<CinemaDbContext>(opts =>
+    opts.UseMySql(conn, ServerVersion.AutoDetect(conn))
 );
+
+// Add controllers & Swagger
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
 
 var app = builder.Build();
 
-// ✅ Enable Swagger middleware
+// Only in Development: turn on Swagger
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cinema API V1");
+        // RoutePrefix defaults to "swagger", so UI is at /swagger
+    });
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
