@@ -11,7 +11,7 @@ namespace Ta23ALõppTöö.DTOs
 
         [Required]
         [MaxLength(255)]
-        public string Title { get; set; }
+        public string Title { get; set; } //s
 
         [Required]
         [MaxLength(255)]
