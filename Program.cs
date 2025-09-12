@@ -5,7 +5,7 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Tell Kestrel to bind both ports
-builder.WebHost.UseUrls("http://localhost:5298", "https://localhost:7282");
+builder.WebHost.UseUrls("http://localhost:5298/", "https://localhost:7282");
 
 // Register EF Core + MySQL
 var conn = builder.Configuration.GetConnectionString("CinemaDb");
@@ -23,6 +23,15 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 
+// ✅ Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 // Only in Development: turn on Swagger
@@ -37,6 +46,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Use CORS before authorization
+app.UseCors("AllowAll");
+
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

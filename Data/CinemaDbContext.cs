@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.Data;
-using System.Net.Sockets;
-using System;
 using Ta23ALõppTöö.Models;
-
 
 namespace CinemaBackend.Data
 {
@@ -36,7 +31,10 @@ namespace CinemaBackend.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Here you can configure relationships, constraints, table names, etc.
+            // 👇 Configure composite primary key for Ad
+            modelBuilder.Entity<Ad>()
+                .HasKey(a => new { a.CinemaId, a.Title });
+
             // Example: modelBuilder.Entity<User>().ToTable("users");
         }
     }
