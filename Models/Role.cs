@@ -1,12 +1,22 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Ta23ALõppTöö.Models
+[Table("roles")]
+public class Role
 {
-    public class Role
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string? Description { get; set; }
-        public DateTime CreatedAt { get; set; }
-    }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("id")]
+    public int Id { get; set; }
+
+    [Required]
+    [Column("name")]
+    public string Name { get; set; }
+
+    [Column("description")]
+    public string? Description { get; set; }
+
+    [Column("created_at")]
+    public DateTime CreatedAt { get; set; }
 }

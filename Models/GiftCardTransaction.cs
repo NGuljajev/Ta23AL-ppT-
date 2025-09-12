@@ -1,16 +1,36 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Ta23ALõppTöö.Models
+[Table("gift_card_transactions")]
+public class GiftCardTransaction
 {
-    public class GiftCardTransaction
-    {
-        public long Id { get; set; }
-        public long GiftCardId { get; set; }
-        public string Type { get; set; } // issue, redeem, topup, transfer
-        public decimal Amount { get; set; }
-        public int? PerformedBy { get; set; }
-        public DateTime? PerformedAt { get; set; }
-        public long? RelatedOrderId { get; set; }
-        public string? Note { get; set; }
-    }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("id")]
+    public long Id { get; set; }
+
+    [Required]
+    [Column("gift_card_id")]
+    public long GiftCardId { get; set; }
+
+    [Required]
+    [Column("type")]
+    public string Type { get; set; } // issue, redeem, topup, transfer
+
+    [Required]
+    [Column("amount")]
+    public decimal Amount { get; set; }
+
+    [Column("performed_by")]
+    public int? PerformedBy { get; set; }
+
+    [Column("performed_at")]
+    public DateTime? PerformedAt { get; set; }
+
+    [Column("related_order_id")]
+    public long? RelatedOrderId { get; set; }
+
+    [Column("note")]
+    public string? Note { get; set; }
 }

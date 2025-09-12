@@ -1,16 +1,35 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Ta23ALõppTöö.Models
+[Table("halls")]
+public class Hall
 {
-    public class Hall
-    {
-        public int Id { get; set; }
-        public int CinemaId { get; set; }
-        public string Name { get; set; }
-        public int SeatCount { get; set; }
-        public string? Description { get; set; }
-        public bool Is3D { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-    }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("id")]
+    public int Id { get; set; }
+
+    [Required]
+    [Column("cinema_id")]
+    public int CinemaId { get; set; }
+
+    [Required]
+    [Column("name")]
+    public string Name { get; set; }
+
+    [Column("seat_count")]
+    public int SeatCount { get; set; }
+
+    [Column("description")]
+    public string? Description { get; set; }
+
+    [Column("is_3d")]
+    public bool Is3D { get; set; }
+
+    [Column("created_at")]
+    public DateTime CreatedAt { get; set; }
+
+    [Column("updated_at")]
+    public DateTime? UpdatedAt { get; set; }
 }

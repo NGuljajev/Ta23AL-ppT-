@@ -1,17 +1,39 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Ta23ALõppTöö.Models
+[Table("tickets")]
+public class Ticket
 {
-    public class Ticket
-    {
-        public long Id { get; set; }
-        public long OrderId { get; set; }
-        public int ScreeningId { get; set; }
-        public int? SeatId { get; set; }
-        public decimal Price { get; set; }
-        public string TicketType { get; set; } // adult, child, senior, student, vip
-        public string Status { get; set; } // active, cancelled, used
-        public string? QrCode { get; set; }
-        public DateTime CreatedAt { get; set; }
-    }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("id")]
+    public long Id { get; set; }
+
+    [Required]
+    [Column("order_id")]
+    public long OrderId { get; set; }
+
+    [Required]
+    [Column("screening_id")]
+    public int ScreeningId { get; set; }
+
+    [Column("seat_id")]
+    public int? SeatId { get; set; }
+
+    [Required]
+    [Column("price")]
+    public decimal Price { get; set; }
+
+    [Column("ticket_type")]
+    public string TicketType { get; set; } // adult, child, senior, student, vip
+
+    [Column("status")]
+    public string Status { get; set; } // active, cancelled, used
+
+    [Column("qr_code")]
+    public string? QrCode { get; set; }
+
+    [Column("created_at")]
+    public DateTime CreatedAt { get; set; }
 }

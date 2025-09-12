@@ -1,22 +1,52 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Ta23ALõppTöö.Models
+[Table("films")]
+public class Film
 {
-    public class Film
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string? OriginalTitle { get; set; }
-        public string? Description { get; set; }
-        public int? DurationMinutes { get; set; }
-        public DateTime? ReleaseDate { get; set; }
-        public string? AgeRating { get; set; }
-        public string? Language { get; set; }
-        public string? Genres { get; set; }
-        public string? Director { get; set; }
-        public string? Cast { get; set; }
-        public string? PosterUrl { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-    }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("id")]
+    public int Id { get; set; }
+
+    [Required]
+    [Column("title")]
+    public string Title { get; set; }
+
+    [Column("original_title")]
+    public string? OriginalTitle { get; set; }
+
+    [Column("description")]
+    public string? Description { get; set; }
+
+    [Column("duration_minutes")]
+    public int? DurationMinutes { get; set; }
+
+    [Column("release_date")]
+    public DateTime? ReleaseDate { get; set; }
+
+    [Column("age_rating")]
+    public string? AgeRating { get; set; }
+
+    [Column("language")]
+    public string? Language { get; set; }
+
+    [Column("genres")]
+    public string? Genres { get; set; }
+
+    [Column("director")]
+    public string? Director { get; set; }
+
+    [Column("cast")]
+    public string? Cast { get; set; }
+
+    [Column("poster_url")]
+    public string? PosterUrl { get; set; }
+
+    [Column("created_at")]
+    public DateTime CreatedAt { get; set; }
+
+    [Column("updated_at")]
+    public DateTime? UpdatedAt { get; set; }
 }

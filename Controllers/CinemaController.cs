@@ -38,7 +38,7 @@ namespace T240P01.Controllers
                     Website = c.Website,
                     Timezone = c.Timezone,
                     CreatedAt = c.CreatedAt,
-                    UpdatedAt = c.UpdatedAt
+                    UpdatedAt = (DateTime)c.UpdatedAt
                 })
                 .ToListAsync();
 
@@ -63,7 +63,7 @@ namespace T240P01.Controllers
                 Website = c.Website,
                 Timezone = c.Timezone,
                 CreatedAt = c.CreatedAt,
-                UpdatedAt = c.UpdatedAt
+                UpdatedAt = (DateTime)c.UpdatedAt
             };
 
             return Ok(dto);
@@ -90,7 +90,7 @@ namespace T240P01.Controllers
 
             dto.Id = entity.Id;
             dto.CreatedAt = entity.CreatedAt;
-            dto.UpdatedAt = entity.UpdatedAt;
+            dto.UpdatedAt = (DateTime)entity.UpdatedAt;
 
             return CreatedAtAction(nameof(GetCinema), new { id = dto.Id }, dto);
         }
