@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Controllers/CinemaController.cs
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,8 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Ta23ALõppTöö.Models;
 using Ta23ALõppTöö.DTOs;
 using CinemaBackend.Data;
-using Ta23ALõppTöö.DTOs;
-using Ta23ALõppTöö.Models;
 
 namespace T240P01.Controllers
 {
@@ -23,6 +22,7 @@ namespace T240P01.Controllers
             _context = context;
         }
 
+        // GET: api/cinema
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CinemaDto>>> GetCinemas()
         {
@@ -38,13 +38,14 @@ namespace T240P01.Controllers
                     Website = c.Website,
                     Timezone = c.Timezone,
                     CreatedAt = c.CreatedAt,
-                    UpdatedAt = (DateTime)c.UpdatedAt
+                    UpdatedAt = c.UpdatedAt ?? DateTime.MinValue
                 })
                 .ToListAsync();
 
             return Ok(list);
         }
 
+        // GET: api/cinema/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CinemaDto>> GetCinema(long id)
         {
@@ -63,12 +64,13 @@ namespace T240P01.Controllers
                 Website = c.Website,
                 Timezone = c.Timezone,
                 CreatedAt = c.CreatedAt,
-                UpdatedAt = (DateTime)c.UpdatedAt
+                UpdatedAt = c.UpdatedAt ?? DateTime.MinValue
             };
 
             return Ok(dto);
         }
 
+        // POST: api/cinema
         [HttpPost]
         public async Task<ActionResult<CinemaDto>> CreateCinema(CinemaDto dto)
         {
@@ -90,11 +92,12 @@ namespace T240P01.Controllers
 
             dto.Id = entity.Id;
             dto.CreatedAt = entity.CreatedAt;
-            dto.UpdatedAt = (DateTime)entity.UpdatedAt;
+            dto.UpdatedAt = entity.UpdatedAt ?? DateTime.MinValue;
 
             return CreatedAtAction(nameof(GetCinema), new { id = dto.Id }, dto);
         }
 
+        // PUT: api/cinema/5
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCinema(long id, CinemaDto dto)
         {
@@ -120,6 +123,7 @@ namespace T240P01.Controllers
             return NoContent();
         }
 
+        // DELETE: api/cinema/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCinema(long id)
         {

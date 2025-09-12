@@ -1,4 +1,5 @@
-﻿using System;
+﻿// DTOs/CinemaDto.cs
+using System;
 
 namespace Ta23ALõppTöö.DTOs
 {
