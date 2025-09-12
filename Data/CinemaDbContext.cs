@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿// Data/CinemaDbContext.cs
+using Microsoft.EntityFrameworkCore;
 using Ta23ALõppTöö.Models;
 
 namespace CinemaBackend.Data
@@ -6,7 +7,9 @@ namespace CinemaBackend.Data
     public class CinemaDbContext : DbContext
     {
         public CinemaDbContext(DbContextOptions<CinemaDbContext> options)
-            : base(options) { }
+            : base(options)
+        {
+        }
 
         public DbSet<Ad> Ads { get; set; }
         public DbSet<Cinema> Cinemas { get; set; }
@@ -31,11 +34,34 @@ namespace CinemaBackend.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // 👇 Configure composite primary key for Ad
-            modelBuilder.Entity<Ad>()
-                .HasKey(a => new { a.CinemaId, a.Title });
+            // Ensure Ad uses its Id as primary key, and match the varchar(500) length in the database
+            modelBuilder.Entity<Ad>(entity =>
+            {
+                entity.HasKey(a => a.Id);
 
-            // Example: modelBuilder.Entity<User>().ToTable("users");
+                entity.Property(a => a.Title)
+                      .HasColumnType("varchar(200)")
+                      .HasMaxLength(200);
+
+                entity.Property(a => a.ClientName)
+                      .HasColumnType("varchar(200)")
+                      .HasMaxLength(200);
+
+                entity.Property(a => a.MediaUrl)
+                      .HasColumnType("varchar(500)")
+                      .HasMaxLength(500);
+
+                entity.Property(a => a.Placement)
+                      .HasColumnType("varchar(500)")
+                      .HasMaxLength(500);
+
+                entity.Property(a => a.Status)
+                      .HasColumnType("varchar(50)")
+                      .HasMaxLength(50);
+            });
+
+            // You can add further modelBuilder.Entity<OtherModel>() calls here if you need
+            // to configure table names, relationships, etc.
         }
     }
 }
