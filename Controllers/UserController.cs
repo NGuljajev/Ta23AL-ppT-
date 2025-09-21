@@ -8,11 +8,11 @@ using BCrypt.Net;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UsersController : ControllerBase
+public class UserController : ControllerBase
 {
     private readonly CinemaDbContext _context;
 
-    public UsersController(CinemaDbContext context)
+    public UserController(CinemaDbContext context)
     {
         _context = context;
     }
