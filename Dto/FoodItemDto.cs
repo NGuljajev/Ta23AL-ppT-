@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Ta23ALõppTöö.DTOs
+namespace Ta23ALõppTöö.Dto
 {
     public class FoodItemDto
     {

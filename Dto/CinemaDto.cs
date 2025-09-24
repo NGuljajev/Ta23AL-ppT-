@@ -1,7 +1,7 @@
 ﻿// DTOs/CinemaDto.cs
 using System;
 
-namespace Ta23ALõppTöö.DTOs
+namespace Ta23ALõppTöö.Dto
 {
     public class CinemaDto
     {

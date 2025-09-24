@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CinemaBackend.Data;
 using Ta23ALõppTöö.Models;
-using Ta23ALõppTöö.DTOs;
+using Ta23ALõppTöö.Dto;
 
 namespace T240P01.Controllers
 {
